@@ -1,1 +1,1095 @@
- pbcopy < "/Users/monavogele/Desktop/People & Talent Development - Executive Dashbpard/index.html"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Workforce Dashboard</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #F0F2F5;
+      color: #111827;
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ‚îÄ‚îÄ‚îÄ HEADER ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    .header {
+      background: #1B2A4A;
+      color: white;
+      padding: 0 28px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .header-brand { display: flex; align-items: center; gap: 14px; }
+    .brand-icon {
+      width: 32px; height: 32px;
+      background: #C9A84C;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .brand-title {
+      font-size: 15px; font-weight: 800;
+      letter-spacing: 0.6px; text-transform: uppercase;
+    }
+    .brand-subtitle { font-size: 10px; color: rgba(255,255,255,0.5); margin-top: 2px; letter-spacing: 0.3px; }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .period-select {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .period-select option { background: #1B2A4A; }
+    .header-badge {
+      font-size: 10px; padding: 3px 10px;
+      background: rgba(201,168,76,0.2);
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 10px; color: #C9A84C;
+      letter-spacing: 0.3px;
+    }
+    .header-date { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+    /* ‚îÄ‚îÄ‚îÄ INFO BAR ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    .info-bar {
+      background: #253D6A;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      height: 46px;
+    }
+    .info-chip {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 22px;
+      height: 100%;
+      border-right: 1px solid rgba(255,255,255,0.12);
+      color: white;
+      flex-shrink: 0;
+    }
+    .info-chip:first-child { padding-left: 0; }
+    .info-chip:last-child { border-right: none; }
+    .chip-label {
+      font-size: 9px; color: rgba(255,255,255,0.5);
+      text-transform: uppercase; letter-spacing: 0.6px;
+    }
+    .chip-value { font-size: 14px; font-weight: 800; line-height: 1; margin-top: 2px; }
+
+    /* ‚îÄ‚îÄ‚îÄ HEALTH BANNER ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    .health-banner {
+      margin: 20px 24px 0;
+      background: white;
+      border-radius: 12px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+      border: 1px solid #E5E7EB;
+    }
+    .gauge-outer { position: relative; width: 100px; height: 100px; flex-shrink: 0; }
+    .gauge-svg { width: 100px; height: 100px; }
+    .gauge-bg { fill: none; stroke: #F0F2F5; stroke-width: 9; }
+    .gauge-track { fill: none; stroke-width: 9; stroke-linecap: round; transition: stroke-dasharray 1.2s cubic-bezier(0.4,0,0.2,1); }
+    .gauge-center {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center; line-height: 1;
+    }
+    .gauge-num { font-size: 26px; font-weight: 900; }
+    .gauge-denom { font-size: 9px; color: #9CA3AF; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+    .health-meta { flex-shrink: 0; }
+    .health-status-tag {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.7px;
+      color: #9CA3AF; margin-bottom: 5px;
+    }
+    .health-status-value { font-size: 24px; font-weight: 900; line-height: 1; margin-bottom: 5px; }
+    .health-trend { font-size: 11px; color: #6B7280; margin-bottom: 2px; }
+    .health-trend strong { font-weight: 700; }
+    .health-sub { font-size: 10px; color: #9CA3AF; }
+
+    .vdivider { width: 1px; height: 68px; background: #E5E7EB; flex-shrink: 0; }
+
+    .pillar-mini-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+    .pillar-mini {
+      text-align: center;
+      padding: 10px 6px;
+      border-radius: 9px;
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      cursor: default;
+      transition: box-shadow 0.15s;
+    }
+    .pillar-mini:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .pillar-mini-score { font-size: 22px; font-weight: 900; line-height: 1; margin-bottom: 5px; }
+    .pillar-mini-name {
+      font-size: 8.5px; color: #6B7280;
+      text-transform: uppercase; letter-spacing: 0.4px; line-height: 1.4;
+    }
+    .pillar-mini-trend { font-size: 10px; margin-top: 3px; font-weight: 600; }
+
+    /* ‚îÄ‚îÄ‚îÄ CARDS GRID ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+    .cards-grid {
+      padding: 18px 24px 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #E5E7EB;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .card.span-full { grid-column: 1 / -1; }
+
+    /* Card header */
+    .card-header {
+      padding: 14px 18px 13px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #F3F4F6;
+    }
+    .card-header-left { display: flex; align-items: center; gap: 11px; }
+    .card-icon {
+      width: 36px; height: 36px;
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; flex-shrink: 0;
+    }
+    .card-title { font-size: 13px; font-weight: 800; color: #111827; line-height: 1; margin-bottom: 3px; }
+    .card-subtitle { font-size: 10px; color: #9CA3AF; }
+    .card-score-block { text-align: right; }
+    .card-score-num { font-size: 24px; font-weight: 900; line-height: 1; }
+    .card-score-trend { font-size: 10px; color: #9CA3AF; margin-top: 2px; }
+
+    /* Card body */
+    .card-body { padding: 14px 18px; flex: 1; }
+    .metric-row { margin-bottom: 15px; }
+    .metric-row:last-child { margin-bottom: 0; }
+    .metric-header {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .metric-label { font-size: 11px; color: #374151; font-weight: 500; }
+    .metric-right { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+    .metric-value { font-size: 13px; font-weight: 800; color: #111827; }
+    .metric-target { font-size: 9.5px; color: #B0B7C3; white-space: nowrap; }
+
+    /* Progress bar */
+    .prog-wrap {
+      height: 7px; background: #F0F2F5;
+      border-radius: 4px; position: relative; overflow: visible;
+    }
+    .prog-fill {
+      height: 100%; border-radius: 4px;
+      transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
+    }
+    .prog-target {
+      position: absolute; top: -4px;
+      width: 2px; height: 15px;
+      background: #9CA3AF; border-radius: 1px;
+    }
+
+    /* Status badges */
+    .badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 2px 8px; border-radius: 10px;
+      font-size: 9.5px; font-weight: 700;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .badge-green  { background: #D1FAE5; color: #065F46; }
+    .badge-amber  { background: #FEF3C7; color: #92400E; }
+    .badge-red    { background: #FEE2E2; color: #991B1B; }
+
+    /* Progress fill colors */
+    .pf-green  { background: #4D9973; }
+    .pf-amber  { background: #C4882E; }
+    .pf-red    { background: #C05550; }
+
+    /* Score/text colors */
+    .c-green  { color: #059669; }
+    .c-amber  { color: #D97706; }
+    .c-red    { color: #DC2626; }
+
+    /* Icon backgrounds */
+    .ib-green   { background: #D1FAE5; }
+    .ib-blue    { background: #DBEAFE; }
+    .ib-purple  { background: #EDE9FE; }
+    .ib-teal    { background: #CCFBF1; }
+    .ib-amber   { background: #FEF3C7; }
+    .ib-orange  { background: #FFEDD5; }
+    .ib-red     { background: #FEE2E2; }
+    .ib-rose    { background: #FFE4E6; }
+
+    /* Data note */
+    .data-note {
+      margin: 0 18px 14px;
+      padding: 8px 12px;
+      border-left: 3px solid #3B5998;
+      background: #EFF6FF;
+      border-radius: 0 7px 7px 0;
+      font-size: 10px; color: #374151; line-height: 1.5;
+    }
+
+    /* Card footer */
+    .card-footer {
+      background: #F9FAFB;
+      padding: 10px 18px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #F3F4F6;
+      margin-top: auto;
+    }
+    .footer-insight { font-size: 10px; color: #9CA3AF; font-style: italic; flex: 1; padding-right: 12px; line-height: 1.4; }
+    .footer-trend { font-size: 11px; font-weight: 700; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+
+    /* Risk card */
+    .risk-grid-inner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding: 14px 18px;
+    }
+    .risk-item {
+      background: #F9FAFB;
+      border-radius: 10px;
+      padding: 14px 16px;
+      border: 1px solid #E5E7EB;
+    }
+    .risk-item-top {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 10px; gap: 8px;
+    }
+    .risk-item-label { font-size: 11px; font-weight: 700; color: #374151; line-height: 1.3; }
+    .risk-item-body { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .risk-item-value { font-size: 28px; font-weight: 900; line-height: 1; }
+    .risk-item-context { font-size: 9.5px; color: #9CA3AF; text-align: right; line-height: 1.5; }
+    .risk-item-note { font-size: 10px; color: #6B7280; margin-top: 8px; line-height: 1.5; }
+
+    /* Page footer */
+    .page-footer {
+      padding: 14px 28px;
+      display: flex; justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-top: 1px solid #E5E7EB;
+      font-size: 10px; color: #B0B7C3;
+    }
+
+    /* Print button */
+    .print-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .print-btn:hover { background: rgba(255,255,255,0.18); }
+
+    @media print {
+      .header { position: static; }
+      body { background: white; }
+      .health-banner, .card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ‚ïê‚ïê‚ïê HEADER ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê -->
+<header class="header">
+  <div class="header-brand">
+    <div class="brand-icon">üìä</div>
+    <div>
+      <div class="brand-title">Executive Workforce Dashboard</div>
+      <div class="brand-subtitle">People &amp; Talent Development ¬∑ Confidential ¬∑ COO View</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="header-badge">LIVE DATA</div>
+    <select class="period-select" id="periodSelect" onchange="applyPeriod(this.value)">
+      <option value="q1-2026">Q1 2026 (Current)</option>
+      <option value="q4-2025" selected>Q4 2025</option>
+      <option value="q3-2025">Q3 2025</option>
+      <option value="q2-2025">Q2 2025</option>
+    </select>
+    <button class="print-btn" onclick="window.print()">üñ® Export</button>
+    <div class="header-date" id="lastUpdated">Last updated: Mar 4, 2026</div>
+  </div>
+</header>
+
+<!-- ‚ïê‚ïê‚ïê INFO BAR ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê -->
+<div class="info-bar" id="infoBar">
+  <div class="info-chip">
+    <div><div class="chip-label">Total Headcount</div><div class="chip-value" id="ib-headcount">1,247</div></div>
+  </div>
+  <div class="info-chip">
+    <div><div class="chip-label">Open Roles</div><div class="chip-value" id="ib-openroles">38</div></div>
+  </div>
+  <div class="info-chip">
+    <div><div class="chip-label">Workforce Health Score</div>
+    <div class="chip-value c-amber" id="ib-score">72 / 100</div></div>
+  </div>
+  <div class="info-chip">
+    <div><div class="chip-label">YoY Trend</div>
+    <div class="chip-value c-red" id="ib-trend">‚Üì ‚àí2.1 pts</div></div>
+  </div>
+  <div class="info-chip">
+    <div><div class="chip-label">Metrics On Target</div>
+    <div class="chip-value" id="ib-ontarget">9 / 20</div></div>
+  </div>
+  <div class="info-chip">
+    <div><div class="chip-label">Metrics At Risk</div>
+    <div class="chip-value c-red" id="ib-atrisk">6</div></div>
+  </div>
+  <div class="info-chip">
+    <div><div class="chip-label">New Hires (Period)</div>
+    <div class="chip-value" id="ib-newhires">84</div></div>
+  </div>
+</div>
+
+<!-- ‚ïê‚ïê‚ïê HEALTH BANNER ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê -->
+<div class="health-banner">
+  <!-- Gauge -->
+  <div class="gauge-outer">
+    <svg class="gauge-svg" viewBox="0 0 100 100" style="transform:rotate(-90deg)">
+      <circle class="gauge-bg" cx="50" cy="50" r="40"/>
+      <circle class="gauge-track" id="gaugeFill" cx="50" cy="50" r="40"
+        stroke="#D97706" stroke-dasharray="0 251.33"/>
+    </svg>
+    <div class="gauge-center">
+      <div class="gauge-num c-amber" id="gaugeNum">72</div>
+      <div class="gauge-denom">/ 100</div>
+    </div>
+  </div>
+
+  <!-- Status text -->
+  <div class="health-meta">
+    <div class="health-status-tag">Overall Workforce Health</div>
+    <div class="health-status-value c-amber" id="healthLabel">At Risk</div>
+    <div class="health-trend">Prior period: <strong id="priorScore">74.1</strong> &nbsp;¬∑&nbsp; <span id="trendLabel" style="color:#DC2626; font-weight:700;">‚Üì Weakening</span></div>
+    <div class="health-sub" id="healthSub">8 of 20 metrics require attention ¬∑ 2 pillars in the red</div>
+  </div>
+
+  <div class="vdivider"></div>
+
+  <!-- Pillar mini scores -->
+  <div class="pillar-mini-grid" id="pillarMiniGrid">
+    <div class="pillar-mini">
+      <div class="pillar-mini-score c-amber" id="ps-retention">65</div>
+      <div class="pillar-mini-name">Workforce Retention</div>
+      <div class="pillar-mini-trend c-red" id="pt-retention">‚Üì ‚àí4</div>
+    </div>
+    <div class="pillar-mini">
+      <div class="pillar-mini-score c-green" id="ps-hiring">78</div>
+      <div class="pillar-mini-name">Hiring Effectiveness</div>
+      <div class="pillar-mini-trend c-green" id="pt-hiring">‚Üë +3</div>
+    </div>
+    <div class="pillar-mini">
+      <div class="pillar-mini-score c-amber" id="ps-onboarding">70</div>
+      <div class="pillar-mini-name">Onboarding Success</div>
+      <div class="pillar-mini-trend c-amber" id="pt-onboarding">‚Üí 0</div>
+    </div>
+    <div class="pillar-mini">
+      <div class="pillar-mini-score c-amber" id="ps-capability">76</div>
+      <div class="pillar-mini-name">Workforce Capability</div>
+      <div class="pillar-mini-trend c-green" id="pt-capability">‚Üë +3</div>
+    </div>
+    <div class="pillar-mini">
+      <div class="pillar-mini-score c-red" id="ps-engagement">68</div>
+      <div class="pillar-mini-name">Engagement &amp; Culture</div>
+      <div class="pillar-mini-trend c-red" id="pt-engagement">‚Üì ‚àí4</div>
+    </div>
+    <div class="pillar-mini">
+      <div class="pillar-mini-score c-amber" id="ps-leadership">72</div>
+      <div class="pillar-mini-name">Leadership Pipeline</div>
+      <div class="pillar-mini-trend c-green" id="pt-leadership">‚Üë +2</div>
+    </div>
+    <div class="pillar-mini">
+      <div class="pillar-mini-score c-amber" id="ps-risk">74</div>
+      <div class="pillar-mini-name">Workforce Risk</div>
+      <div class="pillar-mini-trend c-green" id="pt-risk">‚Üë +3</div>
+    </div>
+  </div>
+</div>
+
+<!-- ‚ïê‚ïê‚ïê CARDS GRID ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê -->
+<div class="cards-grid">
+
+  <!-- ‚îÄ‚îÄ CARD 1: Workforce Retention ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-icon ib-amber">üîí</div>
+        <div>
+          <div class="card-title">Workforce Retention</div>
+          <div class="card-subtitle">Are we keeping our people?</div>
+        </div>
+      </div>
+      <div class="card-score-block">
+        <div class="card-score-num c-amber" id="cs-retention">65</div>
+        <div class="card-score-trend" id="ct-retention">‚Üì from 69 ¬∑ Q3 2025</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Overall Retention Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-retention-1">83%</span>
+            <span class="metric-target">Target ‚â•85%</span>
+            <span class="badge badge-amber" id="b-retention-1">‚ö† Below</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-retention-1" style="width:83%"></div>
+          <div class="prog-target" style="left:85%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Regrettable Turnover Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-retention-2">11%</span>
+            <span class="metric-target">Target ‚â§10%</span>
+            <span class="badge badge-red" id="b-retention-2">‚úï At Risk</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-red" id="p-retention-2" style="width:100%"></div>
+          <div class="prog-target" style="left:91%"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="data-note">Retention declined 4 pp YoY. Exit interviews point to career growth and manager quality as primary drivers. Operations &amp; Field divisions most affected.</div>
+    <div class="card-footer">
+      <span class="footer-insight">Retention is the ultimate lagging indicator of culture, leadership quality, and development investment.</span>
+      <span class="footer-trend c-red">‚Üì Weakening</span>
+    </div>
+  </div>
+
+  <!-- ‚îÄ‚îÄ CARD 2: Hiring Effectiveness ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-icon ib-blue">üéØ</div>
+        <div>
+          <div class="card-title">Hiring Effectiveness</div>
+          <div class="card-subtitle">Are we bringing in the right people quickly?</div>
+        </div>
+      </div>
+      <div class="card-score-block">
+        <div class="card-score-num c-green" id="cs-hiring">78</div>
+        <div class="card-score-trend" id="ct-hiring">‚Üë from 75 ¬∑ Q3 2025</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Time to Fill</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-hiring-1">32 days</span>
+            <span class="metric-target">Target ‚â§35 days</span>
+            <span class="badge badge-green" id="b-hiring-1">‚úì On Track</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-green" id="p-hiring-1" style="width:89%"></div>
+          <div class="prog-target" style="left:100%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Offer Acceptance Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-hiring-2">88%</span>
+            <span class="metric-target">Target ‚â•90%</span>
+            <span class="badge badge-amber" id="b-hiring-2">‚ö† Below</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-hiring-2" style="width:88%"></div>
+          <div class="prog-target" style="left:90%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Quality of Hire (90-Day Success)</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-hiring-3">87%</span>
+            <span class="metric-target">Target ‚â•85%</span>
+            <span class="badge badge-green" id="b-hiring-3">‚úì On Track</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-green" id="p-hiring-3" style="width:87%"></div>
+          <div class="prog-target" style="left:85%"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <span class="footer-insight">Hiring quality drives everything downstream ‚Äî culture, performance, and long-term retention.</span>
+      <span class="footer-trend c-green">‚Üë Improving</span>
+    </div>
+  </div>
+
+  <!-- ‚îÄ‚îÄ CARD 3: Onboarding Success ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-icon ib-teal">üöÄ</div>
+        <div>
+          <div class="card-title">Onboarding Success</div>
+          <div class="card-subtitle">Are new hires ramping successfully?</div>
+        </div>
+      </div>
+      <div class="card-score-block">
+        <div class="card-score-num c-amber" id="cs-onboarding">70</div>
+        <div class="card-score-trend" id="ct-onboarding">‚Üí flat from 70 ¬∑ Q3 2025</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Onboarding Completion Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-onboarding-1">94%</span>
+            <span class="metric-target">Target ‚â•95%</span>
+            <span class="badge badge-amber" id="b-onboarding-1">‚ö† Below</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-onboarding-1" style="width:94%"></div>
+          <div class="prog-target" style="left:95%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Early Turnover (First 90 Days)</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-onboarding-2">12%</span>
+            <span class="metric-target">Target ‚â§10%</span>
+            <span class="badge badge-amber" id="b-onboarding-2">‚ö† Above</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-onboarding-2" style="width:80%"></div>
+          <div class="prog-target" style="left:67%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Time to Productivity</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-onboarding-3">47 days</span>
+            <span class="metric-target">Prior: 52 days ¬∑ ‚Üì YoY</span>
+            <span class="badge badge-green" id="b-onboarding-3">‚úì Improving</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-green" id="p-onboarding-3" style="width:82%"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="data-note">Early turnover rose 2 pp from Q3. Manager assignment gaps flagged in onboarding audit ‚Äî remediation in progress.</div>
+    <div class="card-footer">
+      <span class="footer-insight">Poor onboarding destroys retention before culture even has a chance to take hold.</span>
+      <span class="footer-trend c-amber">‚Üí Flat</span>
+    </div>
+  </div>
+
+  <!-- ‚îÄ‚îÄ CARD 4: Workforce Capability ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-icon ib-purple">üìà</div>
+        <div>
+          <div class="card-title">Workforce Capability</div>
+          <div class="card-subtitle">Is the workforce actually getting better?</div>
+        </div>
+      </div>
+      <div class="card-score-block">
+        <div class="card-score-num c-amber" id="cs-capability">76</div>
+        <div class="card-score-trend" id="ct-capability">‚Üë from 73 ¬∑ Q3 2025</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Training Completion Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-capability-1">91%</span>
+            <span class="metric-target">Target ‚â•95%</span>
+            <span class="badge badge-red" id="b-capability-1">‚úï At Risk</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-red" id="p-capability-1" style="width:91%"></div>
+          <div class="prog-target" style="left:95%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Post-Training Performance Improvement</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-capability-2">+8%</span>
+            <span class="metric-target">Target: measurable ‚Üë</span>
+            <span class="badge badge-green" id="b-capability-2">‚úì Confirmed</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-green" id="p-capability-2" style="width:75%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Internal Promotion Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-capability-3">22%</span>
+            <span class="metric-target">Target ‚â•20%</span>
+            <span class="badge badge-green" id="b-capability-3">‚úì On Track</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-green" id="p-capability-3" style="width:88%"></div>
+          <div class="prog-target" style="left:80%"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <span class="footer-insight">Training must translate into measurable capability gains ‚Äî not just course completions logged.</span>
+      <span class="footer-trend c-green">‚Üë Improving</span>
+    </div>
+  </div>
+
+  <!-- ‚îÄ‚îÄ CARD 5: Employee Engagement ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-icon ib-rose">‚ù§Ô∏è</div>
+        <div>
+          <div class="card-title">Employee Engagement &amp; Culture</div>
+          <div class="card-subtitle">Are employees connected and motivated?</div>
+        </div>
+      </div>
+      <div class="card-score-block">
+        <div class="card-score-num c-red" id="cs-engagement">68</div>
+        <div class="card-score-trend" id="ct-engagement">‚Üì from 72 ¬∑ Q3 2025</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Engagement Score</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-engagement-1">78</span>
+            <span class="metric-target">Target ‚â•80</span>
+            <span class="badge badge-amber" id="b-engagement-1">‚ö† Below</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-engagement-1" style="width:78%"></div>
+          <div class="prog-target" style="left:80%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Survey Participation Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-engagement-2">74%</span>
+            <span class="metric-target">Target ‚â•75%</span>
+            <span class="badge badge-amber" id="b-engagement-2">‚ö† Below</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-engagement-2" style="width:74%"></div>
+          <div class="prog-target" style="left:75%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Employee Referral Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-engagement-3">18%</span>
+            <span class="metric-target">Target ‚â•20%</span>
+            <span class="badge badge-amber" id="b-engagement-3">‚ö† Below</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-engagement-3" style="width:72%"></div>
+          <div class="prog-target" style="left:80%"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="data-note">Engagement dropped 4 pts from prior survey cycle. Participation lowest in Operations (61%) and Field (68%) ‚Äî both below company average by &gt;10 pts.</div>
+    <div class="card-footer">
+      <span class="footer-insight">Engagement is a leading indicator of retention and performance ‚Äî requires immediate executive attention.</span>
+      <span class="footer-trend c-red">‚Üì Weakening</span>
+    </div>
+  </div>
+
+  <!-- ‚îÄ‚îÄ CARD 6: Leadership Pipeline ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-icon ib-orange">‚≠ê</div>
+        <div>
+          <div class="card-title">Leadership Pipeline Health</div>
+          <div class="card-subtitle">Are we building future leaders?</div>
+        </div>
+      </div>
+      <div class="card-score-block">
+        <div class="card-score-num c-amber" id="cs-leadership">72</div>
+        <div class="card-score-trend" id="ct-leadership">‚Üë from 70 ¬∑ Q3 2025</div>
+      </div>
+    </div>
+    <div class="card-body">
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Internal Promotion Rate</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-leadership-1">22%</span>
+            <span class="metric-target">Target ‚â•20%</span>
+            <span class="badge badge-green" id="b-leadership-1">‚úì On Track</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-green" id="p-leadership-1" style="width:88%"></div>
+          <div class="prog-target" style="left:80%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Manager Readiness Score</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-leadership-2">67%</span>
+            <span class="metric-target">Prior: 62% ¬∑ ‚Üë YoY</span>
+            <span class="badge badge-amber" id="b-leadership-2">‚ö† Improving</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-leadership-2" style="width:67%"></div>
+        </div>
+      </div>
+
+      <div class="metric-row">
+        <div class="metric-header">
+          <span class="metric-label">Leadership Program Completion</span>
+          <div class="metric-right">
+            <span class="metric-value" id="m-leadership-3">88%</span>
+            <span class="metric-target">Target ‚â•95%</span>
+            <span class="badge badge-red" id="b-leadership-3">‚úï At Risk</span>
+          </div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-red" id="p-leadership-3" style="width:88%"></div>
+          <div class="prog-target" style="left:95%"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <span class="footer-insight">Constant external hiring for leadership signals a broken internal development system.</span>
+      <span class="footer-trend c-green">‚Üë Improving</span>
+    </div>
+  </div>
+
+  <!-- ‚îÄ‚îÄ CARD 7: Workforce Risk (Full Width) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ -->
+  <div class="card span-full">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-icon ib-red">‚ö†Ô∏è</div>
+        <div>
+          <div class="card-title">Workforce Risk Indicator</div>
+          <div class="card-subtitle">Where could the company get burned? ¬∑ Executive visibility required</div>
+        </div>
+      </div>
+      <div class="card-score-block">
+        <div class="card-score-num c-amber" id="cs-risk">74</div>
+        <div class="card-score-trend" id="ct-risk">‚Üë from 71 ¬∑ Q3 2025</div>
+      </div>
+    </div>
+    <div class="risk-grid-inner">
+
+      <div class="risk-item">
+        <div class="risk-item-top">
+          <span class="risk-item-label">Compliance Training Completion</span>
+          <span class="badge badge-amber">‚ö† Below Target</span>
+        </div>
+        <div class="risk-item-body">
+          <div class="risk-item-value c-amber" id="m-risk-1">96%</div>
+          <div class="risk-item-context">Target: ‚â•98%<br>Gap: 25 employees</div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-amber" id="p-risk-1" style="width:96%"></div>
+          <div class="prog-target" style="left:98%"></div>
+        </div>
+        <div class="risk-item-note">38 employees outstanding. Concentration in Q4 new hire cohort. Deadline: 30 days. Action owner: L&amp;D team.</div>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-item-top">
+          <span class="risk-item-label">Safety Incidents (YTD)</span>
+          <span class="badge badge-green">‚úì Improving</span>
+        </div>
+        <div class="risk-item-body">
+          <div class="risk-item-value c-green" id="m-risk-2">3</div>
+          <div class="risk-item-context">Prior year: 7<br>Target: ‚Üì YoY</div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-green" id="p-risk-2" style="width:57%"></div>
+        </div>
+        <div class="risk-item-note">57% YoY reduction. All incidents classified minor. Zero lost-time incidents for 3rd consecutive quarter.</div>
+      </div>
+
+      <div class="risk-item">
+        <div class="risk-item-top">
+          <span class="risk-item-label">HR Escalations (YTD)</span>
+          <span class="badge badge-red">‚úï Increasing</span>
+        </div>
+        <div class="risk-item-body">
+          <div class="risk-item-value c-red" id="m-risk-3">8</div>
+          <div class="risk-item-context">Prior year: 5<br>Target: ‚Üì YoY</div>
+        </div>
+        <div class="prog-wrap">
+          <div class="prog-fill pf-red" id="p-risk-3" style="width:100%"></div>
+        </div>
+        <div class="risk-item-note">60% increase YoY. 5 of 8 cases tied to two specific departments. Manager coaching and HR business partner intervention underway.</div>
+      </div>
+
+    </div>
+    <div class="card-footer">
+      <span class="footer-insight">Executives need risk visibility early ‚Äî not after a lawsuit, safety incident, or regulatory action forces the conversation.</span>
+      <span class="footer-trend c-amber">‚Üí Monitor Closely</span>
+    </div>
+  </div>
+
+</div><!-- end cards-grid -->
+
+<!-- ‚ïê‚ïê‚ïê PAGE FOOTER ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê -->
+<div class="page-footer">
+  <span>People &amp; Talent Development ¬∑ Executive Workforce Dashboard ¬∑ Confidential ‚Äî COO Distribution Only</span>
+  <span>Data: HRIS ¬∑ LMS ¬∑ Engagement Platform ¬∑ Safety System ¬∑ ATS</span>
+  <span>Composite score methodology: metric criticality weighting ¬∑ Updated Mar 4, 2026</span>
+</div>
+
+<!-- ‚ïê‚ïê‚ïê SCRIPT ‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê‚ïê -->
+<script>
+  /* ‚îÄ‚îÄ Period data ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+  const PERIODS = {
+    'q4-2025': {
+      label: 'Q4 2025',
+      updated: 'Mar 4, 2026',
+      headcount: '1,247', openRoles: '38', newHires: '84',
+      score: 72, prior: 74.1, trendDir: '‚Üì', trendAmt: '‚àí2.1',
+      trendLabel: '‚Üì Weakening', trendColor: '#DC2626',
+      healthLabel: 'At Risk', healthColor: '#D97706',
+      gaugeColor: '#D97706',
+      atRisk: 6, onTarget: '9 / 20',
+      healthSub: '8 of 20 metrics require attention ¬∑ 2 pillars in the red',
+      pillars: {
+        retention:  { score: 65, trend: '‚Üì ‚àí4', trendColor: '#DC2626' },
+        hiring:     { score: 78, trend: '‚Üë +3', trendColor: '#059669' },
+        onboarding: { score: 70, trend: '‚Üí 0',  trendColor: '#D97706' },
+        capability: { score: 76, trend: '‚Üë +3', trendColor: '#059669' },
+        engagement: { score: 68, trend: '‚Üì ‚àí4', trendColor: '#DC2626' },
+        leadership: { score: 72, trend: '‚Üë +2', trendColor: '#059669' },
+        risk:       { score: 74, trend: '‚Üë +3', trendColor: '#059669' },
+      }
+    },
+    'q3-2025': {
+      label: 'Q3 2025',
+      updated: 'Dec 3, 2025',
+      headcount: '1,231', openRoles: '42', newHires: '71',
+      score: 74.1, prior: 73.0, trendDir: '‚Üë', trendAmt: '+1.1',
+      trendLabel: '‚Üë Stable', trendColor: '#D97706',
+      healthLabel: 'At Risk', healthColor: '#D97706',
+      gaugeColor: '#D97706',
+      atRisk: 5, onTarget: '10 / 20',
+      healthSub: '5 of 20 metrics require attention ¬∑ 1 pillar in the red',
+      pillars: {
+        retention:  { score: 69, trend: '‚Üë +1', trendColor: '#059669' },
+        hiring:     { score: 75, trend: '‚Üí 0',  trendColor: '#D97706' },
+        onboarding: { score: 70, trend: '‚Üë +2', trendColor: '#059669' },
+        capability: { score: 73, trend: '‚Üë +4', trendColor: '#059669' },
+        engagement: { score: 72, trend: '‚Üì ‚àí2', trendColor: '#DC2626' },
+        leadership: { score: 70, trend: '‚Üë +1', trendColor: '#059669' },
+        risk:       { score: 71, trend: '‚Üë +2', trendColor: '#059669' },
+      }
+    },
+    'q2-2025': {
+      label: 'Q2 2025',
+      updated: 'Sep 2, 2025',
+      headcount: '1,198', openRoles: '51', newHires: '63',
+      score: 73.0, prior: 69.5, trendDir: '‚Üë', trendAmt: '+3.5',
+      trendLabel: '‚Üë Strengthening', trendColor: '#059669',
+      healthLabel: 'Building', healthColor: '#059669',
+      gaugeColor: '#059669',
+      atRisk: 4, onTarget: '12 / 20',
+      healthSub: '4 of 20 metrics require attention ¬∑ All pillars improving',
+      pillars: {
+        retention:  { score: 68, trend: '‚Üë +2', trendColor: '#059669' },
+        hiring:     { score: 75, trend: '‚Üë +5', trendColor: '#059669' },
+        onboarding: { score: 68, trend: '‚Üë +1', trendColor: '#059669' },
+        capability: { score: 69, trend: '‚Üë +6', trendColor: '#059669' },
+        engagement: { score: 74, trend: '‚Üë +4', trendColor: '#059669' },
+        leadership: { score: 69, trend: '‚Üë +3', trendColor: '#059669' },
+        risk:       { score: 69, trend: '‚Üë +1', trendColor: '#059669' },
+      }
+    },
+    'q1-2026': {
+      label: 'Q1 2026',
+      updated: 'Mar 4, 2026',
+      headcount: '1,263', openRoles: '29', newHires: '91',
+      score: 69, prior: 72, trendDir: '‚Üì', trendAmt: '‚àí3.0',
+      trendLabel: '‚Üì Weakening', trendColor: '#DC2626',
+      healthLabel: 'At Risk', healthColor: '#DC2626',
+      gaugeColor: '#DC2626',
+      atRisk: 9, onTarget: '7 / 20',
+      healthSub: '10 of 20 metrics require attention ¬∑ 3 pillars in the red',
+      pillars: {
+        retention:  { score: 61, trend: '‚Üì ‚àí4', trendColor: '#DC2626' },
+        hiring:     { score: 74, trend: '‚Üì ‚àí4', trendColor: '#DC2626' },
+        onboarding: { score: 67, trend: '‚Üì ‚àí3', trendColor: '#DC2626' },
+        capability: { score: 71, trend: '‚Üì ‚àí5', trendColor: '#DC2626' },
+        engagement: { score: 65, trend: '‚Üì ‚àí3', trendColor: '#DC2626' },
+        leadership: { score: 70, trend: '‚Üì ‚àí2', trendColor: '#DC2626' },
+        risk:       { score: 72, trend: '‚Üì ‚àí2', trendColor: '#DC2626' },
+      }
+    }
+  };
+
+  /* ‚îÄ‚îÄ scoreColor ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+  function scoreColor(s) {
+    if (s >= 80) return '#059669';
+    if (s >= 70) return '#D97706';
+    return '#DC2626';
+  }
+
+  /* ‚îÄ‚îÄ applyPeriod ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+  function applyPeriod(key) {
+    const d = PERIODS[key];
+    if (!d) return;
+
+    // Info bar
+    document.getElementById('ib-headcount').textContent = d.headcount;
+    document.getElementById('ib-openroles').textContent = d.openRoles;
+    document.getElementById('ib-newhires').textContent = d.newHires;
+    const scoreEl = document.getElementById('ib-score');
+    scoreEl.textContent = d.score + ' / 100';
+    scoreEl.style.color = d.healthColor;
+    const trendEl = document.getElementById('ib-trend');
+    trendEl.textContent = d.trendDir + ' ' + d.trendAmt + ' pts';
+    trendEl.style.color = d.trendColor;
+    document.getElementById('ib-ontarget').textContent = d.onTarget;
+    const arEl = document.getElementById('ib-atrisk');
+    arEl.textContent = d.atRisk;
+    arEl.style.color = d.atRisk > 5 ? '#DC2626' : '#D97706';
+    document.getElementById('lastUpdated').textContent = 'Last updated: ' + d.updated;
+
+    // Gauge
+    const circ = 2 * Math.PI * 40; // 251.33
+    const fill = document.getElementById('gaugeFill');
+    fill.setAttribute('stroke', d.gaugeColor);
+    fill.setAttribute('stroke-dasharray', ((d.score / 100) * circ).toFixed(2) + ' ' + circ);
+    const gn = document.getElementById('gaugeNum');
+    gn.textContent = d.score;
+    gn.style.color = d.gaugeColor;
+
+    // Health text
+    document.getElementById('healthLabel').textContent = d.healthLabel;
+    document.getElementById('healthLabel').style.color = d.healthColor;
+    document.getElementById('priorScore').textContent = d.prior;
+    const tl = document.getElementById('trendLabel');
+    tl.textContent = d.trendLabel;
+    tl.style.color = d.trendColor;
+    document.getElementById('healthSub').textContent = d.healthSub;
+
+    // Pillar mini scores
+    const pkeys = ['retention','hiring','onboarding','capability','engagement','leadership','risk'];
+    pkeys.forEach(k => {
+      const p = d.pillars[k];
+      const sEl = document.getElementById('ps-' + k);
+      sEl.textContent = p.score;
+      sEl.style.color = scoreColor(p.score);
+      const tEl = document.getElementById('pt-' + k);
+      tEl.textContent = p.trend;
+      tEl.style.color = p.trendColor;
+    });
+
+    // Card scores (update color only based on value)
+    const cardMap = { retention:'cs-retention', hiring:'cs-hiring', onboarding:'cs-onboarding',
+      capability:'cs-capability', engagement:'cs-engagement', leadership:'cs-leadership', risk:'cs-risk' };
+    pkeys.forEach(k => {
+      const el = document.getElementById(cardMap[k]);
+      if (el) {
+        el.textContent = d.pillars[k].score;
+        el.style.color = scoreColor(d.pillars[k].score);
+      }
+    });
+  }
+
+  /* ‚îÄ‚îÄ Init on load ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ */
+  document.addEventListener('DOMContentLoaded', () => {
+    // Animate gauge
+    applyPeriod('q4-2025');
+
+    // Stagger progress bar animations
+    const bars = document.querySelectorAll('.prog-fill');
+    bars.forEach((bar, i) => {
+      const target = bar.style.width;
+      bar.style.width = '0%';
+      setTimeout(() => { bar.style.width = target; }, 100 + i * 60);
+    });
+  });
+</script>
+
+</body>
+</html>
